@@ -1,0 +1,5 @@
+name: DiscordWhitelister
+version: 1.0.0
+main: com.discordwhitelister.bungeecord.DiscordWhitelisterBungee
+author: DiscordWhitelister
+description: Whitelist players through Discord

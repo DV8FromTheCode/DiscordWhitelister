@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "discordwhitelister",
+  "version": "${version}",
+  "name": "Discord Whitelister",
+  "description": "Manage your Minecraft server whitelist through Discord",
+  "authors": [
+    "DiscordWhitelister"
+  ],
+  "contact": {
+    "homepage": "https://github.com/yourusername/DiscordWhitelister",
+    "sources": "https://github.com/yourusername/DiscordWhitelister"
+  },
+  "license": "MIT",
+  "icon": "assets/discordwhitelister/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.discordwhitelister.fabric.DiscordWhitelisterMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": ">=1.19.0",
+    "java": ">=17"
+  }
+}

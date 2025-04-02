@@ -1,0 +1,9 @@
+{
+  "id": "discordwhitelister",
+  "name": "Discord Whitelister",
+  "version": "1.0.0",
+  "description": "Whitelist players through Discord",
+  "authors": ["DiscordWhitelister"],
+  "dependencies": [],
+  "main": "com.discordwhitelister.velocity.DiscordWhitelisterVelocity"
+}

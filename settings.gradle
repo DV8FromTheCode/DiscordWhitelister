@@ -1,0 +1,11 @@
+rootProject.name = 'DiscordWhitelister'
+
+include 'common'
+include 'spigot'
+include 'paper'
+// Temporarily excluding fabric due to build issues
+// include 'fabric'
+include 'forge'
+include 'neoforge'
+include 'bungeecord'
+include 'velocity'

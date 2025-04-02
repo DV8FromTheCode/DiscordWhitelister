@@ -1,0 +1,98 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    implementation project(':common')
+    
+    // BungeeCord API
+    compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
+    
+    // Discord API
+    implementation 'net.dv8tion:JDA:5.0.0-beta.13'
+    
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+    
+    // JSON handling
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+jar {
+    archiveBaseName.set("DiscordWhitelister-bungeecord")
+    archiveVersion.set(project.version.toString())
+}
+
+shadowJar {
+    archiveBaseName.set("DiscordWhitelister-bungeecord")
+    archiveVersion.set(project.version.toString())
+    archiveClassifier.set('')
+    
+    relocate 'net.dv8tion.jda', 'com.discordwhitelister.lib.jda'
+    relocate 'com.google.gson', 'com.discordwhitelister.lib.gson'
+    relocate 'org.slf4j', 'com.discordwhitelister.lib.slf4j'
+    relocate 'ch.qos.logback', 'com.discordwhitelister.lib.logback'
+    
+    minimize()
+}
+
+tasks.build.dependsOn tasks.shadowJar
+
+// Create resources directory if it doesn't exist
+task createResourcesDir {
+    doLast {
+        mkdir "src/main/resources"
+    }
+}
+
+// Create default config.yml
+task createDefaultConfig {
+    dependsOn createResourcesDir
+    doLast {
+        def configFile = file("src/main/resources/config.yml")
+        if (!configFile.exists()) {
+            configFile.text = """# Discord Whitelister Configuration
+discord:
+  bot-token: ""
+  guild-id: ""
+  channel-id: ""
+  message-format: "whitelist {username}"
+  success-message: "You have been whitelisted! You can now join the server."
+  require-role: false
+  required-role-id: ""
+
+storage:
+  type: json
+  file: whitelist.json
+
+enforce-whitelist: true
+"""
+        }
+    }
+}
+
+// Create plugin.yml
+task createPluginYml {
+    dependsOn createResourcesDir
+    doLast {
+        def pluginYml = file("src/main/resources/bungee.yml")
+        if (!pluginYml.exists()) {
+            pluginYml.text = """name: DiscordWhitelister
+version: ${project.version}
+main: com.discordwhitelister.bungeecord.DiscordWhitelisterBungee
+author: DiscordWhitelister
+description: Whitelist players through Discord
+"""
+        }
+    }
+}
+
+processResources {
+    dependsOn createDefaultConfig, createPluginYml
+}

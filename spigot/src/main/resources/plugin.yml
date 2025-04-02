@@ -1,0 +1,16 @@
+name: DiscordWhitelister
+version: 1.0.0
+main: com.discordwhitelister.spigot.DiscordWhitelisterPlugin
+api-version: 1.13
+description: Discord whitelist management for Minecraft servers
+author: DiscordWhitelister
+commands:
+  discordwhitelist:
+    description: Discord Whitelister commands
+    usage: /discordwhitelist <reload|status|add|remove|list>
+    aliases: [dw]
+    permission: discordwhitelister.admin
+permissions:
+  discordwhitelister.admin:
+    description: Allows access to all Discord Whitelister commands
+    default: op

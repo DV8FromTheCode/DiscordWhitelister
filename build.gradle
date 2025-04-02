@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+// Read version from version.txt file
+def versionFile = file('version.txt')
+def projectVersion = versionFile.exists() ? versionFile.text.trim() : '1.0.0'
+
+allprojects {
+    group = 'com.discordwhitelister'
+    version = projectVersion
+    
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}

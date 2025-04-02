@@ -1,0 +1,31 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+dependencies {
+    implementation project(':common')
+    
+    // Spigot API
+    compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
+    
+    // SLF4J implementation
+    implementation 'org.slf4j:slf4j-jdk14:2.0.9'
+}
+
+repositories {
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+shadowJar {
+    archiveBaseName.set('DiscordWhitelister')
+    archiveClassifier.set('spigot')
+    
+    relocate 'net.dv8tion.jda', 'com.discordwhitelister.lib.jda'
+    relocate 'com.google.gson', 'com.discordwhitelister.lib.gson'
+    relocate 'org.slf4j', 'com.discordwhitelister.lib.slf4j'
+    
+    minimize()
+}
+
+tasks.build.dependsOn tasks.shadowJar
