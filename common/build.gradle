@@ -10,6 +10,11 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
+jar {
+    archiveBaseName.set("DiscordWhitelister-common")
+    archiveVersion.set(project.version.toString())
+}
+
 test {
     useJUnitPlatform()
 }

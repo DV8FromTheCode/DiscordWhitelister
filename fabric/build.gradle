@@ -44,6 +44,8 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}"}
     }
+    archiveBaseName.set("DiscordWhitelister-fabric")
+    archiveVersion.set(project.version.toString())
 }
 
 // Configure the maven publication
